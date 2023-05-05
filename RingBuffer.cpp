@@ -95,10 +95,13 @@ uint32_t RingBuffer::ReadFromHead() {
 	return lastReadLocn;
 };
 
-uint32_t RingBuffer::ReadNext() {
+uint32_t RingBuffer::ReadNext(bool changeDirection) {
 
 	if (badCommand) return lastReadLocn;
 
+	if (changeDirection){
+		if (readDirection == forward) readDirection = backward; else readDirection = forward;
+	}
 	if (readDirection == forward) {  // from tail towards head
 		lastReadLocn++;
 		if (lastReadLocn > lastArrayLocn) lastReadLocn = 0;

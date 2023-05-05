@@ -8,8 +8,10 @@ your own type in a struct and use that. No problem.
 ​	The library manages the index into the array/storage structure. It is NOT limited to 
 storage in an array in memory but could be used to store data in EEPROM, SD card or
 any other storage medium.
+Note that this library does NOT store any data but manages the returning of an index
+into an **Array** or **Data Structure** to indicate where to store or retrieve the data.
 
-​	If you examine the Example **TestRingBuffer** I have used an array of char, just because
+If you examine the Example **TestRingBuffer** I have used an array of char, just because
 it's easy to track the addition of ASCII characters to demonstrate usage.
 
 ​	You start off by defining your storage medium. As I said before it can be used for 
@@ -41,7 +43,7 @@ last entered data and tail represents the first entered data. **ReadFromHead()**
 `Serial.print( buffer[ cBuf.ReadFromHead() ] );` where the data is returned from the array
 and printed. 
 
-###### ReadNext()
+###### ReadNext(),  ReadNext(bool changeDirection)
 
 ​	In order to continue retrieving data from the store (array) we now use the function
 **ReadNext().** This returns the next array index in the sequence and is used in the
@@ -51,6 +53,10 @@ be possible to read past head or tail which would give rise to an erroneous cond
 To ensure that this does not happen the boolean variable **badCommand** is set to true
 and the index returned by **ReadNext()** is NOT incremented or decremented, i.e. the 
 previous value is returned.
+
+​	Note that as of vs 1.10 **ReadNext** can have the optional option to change read direction.
+ **ReadNext()** returns the next data index in the original set direction whilst **ReadNext(true)**
+ changes the direction and returns the previous index.
 
 The **badCommand** is reset to false by using either **ReadFromHead()** or **ReadFromTail()** again.
 

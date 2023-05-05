@@ -25,6 +25,7 @@
 
   Revision	   Date		Author				   Description
   1.00		04/05/2023	Robert E Bridges	- Initial release
+  1.10		05/05/2023	Robert E Bridges	- Option added to allow ReadNext to change direction.
 
   This library is designed to offer a Ring buffer control aka Roladex.
   Although other libraries exist they are usually limited to storing standard numeric
@@ -34,7 +35,9 @@
   The library manages the index into the array/storage structure. It is NOT limited to 
   storage in an array in memory but could be used to store data in EEPROM, SD card or
   any other storage medium.
-
+  Note that this library does NOT store any data but manages the returning of an index
+  into an Array or Data Structure to indicate where to store or retrieve the data.
+  
   If you examine the Example "TestRingBuffer" I have used an array of char, just because
   it's easy to track the addition of ASCII characters to demonstrate useage.
 
@@ -71,6 +74,9 @@
   To ensure that this does not happen the boolean variable "BadCommand" is set to true
   and the index returned by "ReadNext()" is NOT incremented or decremented, i.e. the 
   previous value is returned.
+  Note that as of vs 1.10 ReadNext can have the optional option to change read direction.
+  ReadNext() returns the next data index in the original set direction whilst ReadNext(true)
+  changes the direction and returns the previous index.
 
   The boolean variable is reset to false by using either "ReadFromHead() or "ReadFromTail()" again.
 
@@ -126,7 +132,7 @@ public:
 	uint32_t currentBufferLength();
 	uint32_t ReadFromTail();
 	uint32_t ReadFromHead();
-	uint32_t ReadNext();
+	uint32_t ReadNext(bool changeDirectionn = false);
 
 	infoType SaveRBInfo();
 	bool	 RestoreRBInfo(infoType info);
