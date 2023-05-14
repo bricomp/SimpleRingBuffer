@@ -1,4 +1,6 @@
-#### ***UniversalRingBuffer***  
+#### ***SimpleRingBuffer***  
+
+*Note: This library has been renamed from UniversalRingBuffer.*
 
 ​	This library is designed to offer a Ring buffer control aka **Rolodex**.
 Although other libraries exist they are usually limited to storing standard numeric
